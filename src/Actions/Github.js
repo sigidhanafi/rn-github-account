@@ -2,10 +2,11 @@ import { Observable } from 'rxjs'
 import axios from 'axios'
 
 // ACTION CREATOR
-export function request () {
+export function request (username) {
   return {
     type: 'REQUEST',
-    data: null
+    data: null,
+    username
   }
 }
 

@@ -9,6 +9,8 @@ import {
   Image
 } from 'react-native';
 
+import { request } from '../Actions/Github'
+
 class Github extends React.Component {
     constructor(props) {
       super(props)
@@ -99,7 +101,7 @@ class Github extends React.Component {
   })
   
   const mapDispatchToProps = (dispatch) => ({
-    fetchUser: (username) => dispatch({ type: 'REQUEST', username })
+    fetchUser: (username) => dispatch(request(username))
   })
   
   export default connect(mapStateToProps, mapDispatchToProps)(Github)
