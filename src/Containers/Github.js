@@ -5,26 +5,64 @@ import {
   Text,
   View,
   TextInput,
-  Button
+  Button,
+  Image
 } from 'react-native';
 
 class Github extends React.Component {
     constructor(props) {
       super(props)
       this.state = {
-        username: ''
+        fetching: false,
+        user: null,
+        username: 'sigidhanafi123'
       }
     }
   
     componentDidMount () {
     }
+
+    componentWillReceiveProps (newProps) {
+      const { github } = newProps
+      const { fetching, data } = github
+      if (this.state.fetching !== fetching) {
+        this.setState({
+          fetching,
+          user: data
+        })
+      }
+    }
   
     _onChangeUser = (username) => {
       this.setState({ username })
     }
+
+    _renderUser = () => {
+      const { user } = this.state
+      console.log('USER', user)
+      return (
+        <View style={styles.userContainer}>
+          <View style={styles.leftContainer}>
+            <View>
+              <Image
+                source={{ uri: user.avatar_url}}
+                style={{ width: 150, height: 150 }} />
+            </View>
+          </View>
+          <View style={styles.rightContainer}>
+            <View>
+              <Text>{user.name && user.name}</Text>
+              <Text>{user.location && user.location}</Text>
+              <Text>{user.bio && user.bio}</Text>
+              <Text>{user.blog && user.blog}</Text>
+            </View>
+          </View>
+        </View>
+      )
+    }
   
     render() {
-      const { username } = this.state
+      const { username, user, fetching } = this.state
       return (
         <View style={styles.container}>
           <View style={styles.headerContainer}>
@@ -50,6 +88,7 @@ class Github extends React.Component {
             />
           </View>
           <View style={styles.bodyContainer}>
+            { user && this._renderUser() }
           </View>
         </View>
       );
@@ -70,13 +109,11 @@ class Github extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   headerContainer: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   welcome: {
     fontSize: 20,
@@ -89,7 +126,10 @@ const styles = StyleSheet.create({
     margin: 10
   },
   formContainer: {
-    flex: 1
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   input: {
     borderBottomWidth: 1,
@@ -100,5 +140,17 @@ const styles = StyleSheet.create({
   },
   bodyContainer: {
     flex: 4
+  },
+  userContainer: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  leftContainer: {
+    flex: 1,
+    padding: 10
+  },
+  rightContainer: {
+    flex: 1,
+    padding: 10
   }
 });
