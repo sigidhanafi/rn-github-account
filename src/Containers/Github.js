@@ -15,7 +15,7 @@ class Github extends React.Component {
       this.state = {
         fetching: false,
         user: null,
-        username: 'sigidhanafi123'
+        username: 'sigidhanafi'
       }
     }
   
@@ -39,7 +39,6 @@ class Github extends React.Component {
 
     _renderUser = () => {
       const { user } = this.state
-      console.log('USER', user)
       return (
         <View style={styles.userContainer}>
           <View style={styles.leftContainer}>

@@ -29,9 +29,14 @@ export const fetchUserEpic = actions$ => (
     .ofType('REQUEST')
     .mergeMap(action => 
       Observable.fromPromise(axios.get(`https://api.github.com/users/${action.username}`))
-        .map(response => success(response.data))
-        .catch((error, response) =>
-          Observable.of({ type: 'FAILURE', data: null })
+        .map(response => {
+          const { data } = response
+          return success(data)
+        })
+        .catch(({response}) => {
+            const { status } = response
+            return Observable.of({ type: 'FAILURE', data: null })
+          }
         )
     )
 )
