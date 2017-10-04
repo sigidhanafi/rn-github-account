@@ -25,8 +25,6 @@ const store = createStore(
   )
 )
 
-console.log('STORE', store.getState())
-
 import Github from './src/Containers/Github'
 
 export default class GithubAccount extends Component {
