@@ -16,7 +16,7 @@ import { rootEpic } from './src/Actions'
 const epicMiddleware = createEpicMiddleware(rootEpic)
 
 import { composeWithDevTools } from 'remote-redux-devtools'
-const composeEnhancers = composeWithDevTools({ name: 'GithubAccount', realtime: true, port: 8000, sendTo: "http://localhost:8000" });
+const composeEnhancers = composeWithDevTools({ name: 'GithubAccount', realtime: true, port: 8000 });
 
 const store = createStore(
   rootReducer,
