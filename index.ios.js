@@ -13,9 +13,19 @@ import rootReducer from './src/Reducers'
 
 import { createEpicMiddleware } from 'redux-observable'
 import { rootEpic } from './src/Actions'
-
 const epicMiddleware = createEpicMiddleware(rootEpic)
-const store = createStore(rootReducer, applyMiddleware(epicMiddleware))
+
+import { composeWithDevTools } from 'remote-redux-devtools'
+const composeEnhancers = composeWithDevTools({ name: 'GithubAccount', realtime: true, port: 8000, sendTo: "http://localhost:8000" });
+
+const store = createStore(
+  rootReducer,
+  composeEnhancers(
+    applyMiddleware(epicMiddleware)
+  )
+)
+
+console.log('STORE', store.getState())
 
 import Github from './src/Containers/Github'
 
