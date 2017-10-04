@@ -6,7 +6,8 @@ import {
   View,
   TextInput,
   Button,
-  Image
+  Image,
+  ActivityIndicator
 } from 'react-native';
 
 import { request } from '../Actions/Github'
@@ -89,7 +90,11 @@ class Github extends React.Component {
             />
           </View>
           <View style={styles.bodyContainer}>
-            { user && this._renderUser() }
+            { fetching
+              ? <ActivityIndicator size={'small'} />
+              : null
+            }
+            { !fetching && user && this._renderUser() }
           </View>
         </View>
       );
